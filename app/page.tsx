@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link";
 
 export default function HomePage() {
@@ -170,6 +171,120 @@ export default function HomePage() {
                 We are here whenever you need help.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+            {/* TESTIMONIALS */}
+      <section className="bg-white py-14">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="flex flex-col gap-2">
+            <h2 className="text-2xl font-semibold text-slate-900">
+              What customers say
+            </h2>
+            <p className="text-slate-600">
+              Real feedback from people who shop with PremiumStore.
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {[
+              {
+                name: "Alex M.",
+                text: "Clean design, great quality, and super fast delivery. Exactly what I needed.",
+                rating: 5,
+              },
+              {
+                name: "Deniz K.",
+                text: "The checkout was smooth and the packaging felt premium. Loved the experience!",
+                rating: 5,
+              },
+              {
+                name: "Sara L.",
+                text: "Customer support was quick and helpful. Definitely ordering again.",
+                rating: 4,
+              },
+            ].map((t) => (
+              <div
+                key={t.name}
+                className="rounded-xl border bg-white p-6 shadow-sm"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1" aria-label="Rating">
+                    {Array.from({ length: 5 }).map((_, idx) => (
+                      <svg
+                        key={idx}
+                        viewBox="0 0 24 24"
+                        className="h-4 w-4"
+                        fill={idx < t.rating ? "currentColor" : "none"}
+                        stroke="currentColor"
+                        strokeWidth="1.6"
+                        aria-hidden="true"
+                      >
+                        <path d="M12 2l3 7 7 .6-5.3 4.4 1.7 6.6L12 17.8 5.6 20.9l1.7-6.6L2 9.6 9 9l3-7Z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <span className="text-xs text-slate-500">
+                    {t.rating}.0
+                  </span>
+                </div>
+
+                <p className="mt-4 text-sm leading-6 text-slate-600">
+                  “{t.text}”
+                </p>
+
+                <div className="mt-5 flex items-center gap-3">
+                  <div className="h-9 w-9 rounded-full bg-slate-100" />
+                  <div>
+                    <p className="text-sm font-semibold text-slate-900">
+                      {t.name}
+                    </p>
+                    <p className="text-xs text-slate-500">Verified buyer</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* NEWSLETTER */}
+      <section className="bg-slate-50 py-14">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="rounded-2xl border bg-white p-8 md:p-10">
+            <div className="grid gap-8 md:grid-cols-2 md:items-center">
+              <div>
+                <h2 className="text-2xl font-semibold text-slate-900">
+                  Join our newsletter
+                </h2>
+                <p className="mt-2 text-slate-600">
+                  Get product updates, exclusive offers and early access to new
+                  arrivals.
+                </p>
+              </div>
+
+              <form
+                className="flex flex-col gap-3 sm:flex-row"
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email"
+                  className="h-11 flex-1 rounded-md border border-slate-200 px-4 text-sm outline-none focus:border-slate-400"
+                />
+                <button
+                  type="submit"
+                  className="h-11 rounded-md bg-blue-600 px-6 text-sm font-semibold text-white hover:opacity-95"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+
+            <p className="mt-4 text-xs text-slate-500">
+              By subscribing, you agree to our Privacy Policy.
+            </p>
           </div>
         </div>
       </section>
