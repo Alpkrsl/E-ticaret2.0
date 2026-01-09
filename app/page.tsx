@@ -288,6 +288,71 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {/* BRAND LOGOS */}
+      <section className="bg-white py-12">
+        <div className="mx-auto max-w-6xl px-4">
+          <p className="text-center text-sm text-slate-500">
+            Trusted by teams and customers worldwide
+          </p>
+
+          <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-6">
+            {["Nike", "Apple", "Samsung", "Sony", "Adidas", "Amazon"].map(
+              (brand) => (
+                <div
+                  key={brand}
+                  className="flex items-center justify-center rounded-lg border bg-slate-50 py-4 text-sm font-semibold text-slate-600"
+                >
+                  {brand}
+                </div>
+              )
+            )}
+          </div>
+        </div>
+      </section>
+      {/* FAQ */}
+      <section className="bg-slate-50 py-14">
+        <div className="mx-auto max-w-4xl px-4">
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold text-slate-900">
+              Frequently Asked Questions
+            </h2>
+            <p className="mt-2 text-slate-600">
+              Everything you need to know before ordering
+            </p>
+          </div>
+
+          <div className="mt-10 space-y-4">
+            {[
+              {
+                q: "How long does shipping take?",
+                a: "Orders are typically delivered within 2–5 business days.",
+              },
+              {
+                q: "Can I return a product?",
+                a: "Yes, you can return any item within 14 days of delivery.",
+              },
+              {
+                q: "Is my payment information secure?",
+                a: "All payments are processed using encrypted and secure systems.",
+              },
+              {
+                q: "Do you offer international shipping?",
+                a: "Yes, we ship to most countries worldwide.",
+              },
+            ].map((item) => (
+              <div
+                key={item.q}
+                className="rounded-xl border bg-white p-6"
+              >
+                <h3 className="text-sm font-semibold text-slate-900">
+                  {item.q}
+                </h3>
+                <p className="mt-2 text-sm text-slate-600">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
     </div>
   );
