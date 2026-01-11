@@ -70,6 +70,69 @@ export default function AboutPage() {
             />
           </div>
         </div>
+              {/* MISSION & VALUES (Day 3) */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-slate-900">
+            Our Mission & Values
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-slate-600">
+            We build long-lasting value through design integrity, quality, and
+            customer trust.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {[
+            {
+              title: "Quality First",
+              text: "We source and craft products using premium materials and strict quality standards.",
+            },
+            {
+              title: "Customer Centric",
+              text: "Every decision we make starts with the needs and experience of our customers.",
+            },
+            {
+              title: "Timeless Design",
+              text: "We believe good design should outlive trends and seasons.",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="rounded-2xl bg-white p-6 text-center shadow-sm"
+            >
+              <h3 className="text-sm font-semibold text-slate-900">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-sm leading-6 text-slate-600">
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* STATS (Day 3) */}
+      <section className="bg-white py-14">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="grid gap-8 text-center sm:grid-cols-2 md:grid-cols-4">
+            {[
+              { value: "10K+", label: "Customers" },
+              { value: "500+", label: "Products" },
+              { value: "5+", label: "Years Experience" },
+              { value: "24/7", label: "Support" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="text-3xl font-semibold text-slate-900">
+                  {stat.value}
+                </p>
+                <p className="mt-1 text-sm text-slate-600">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       </section>
     </div>
   );
