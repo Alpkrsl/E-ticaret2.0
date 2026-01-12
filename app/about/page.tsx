@@ -134,6 +134,36 @@ export default function AboutPage() {
       </section>
 
       </section>
+            {/* CTA (Day 4) */}
+      <section className="bg-slate-900 py-20">
+        <div className="mx-auto max-w-4xl px-4 text-center">
+          <h2 className="text-3xl font-semibold text-white">
+            Ready to discover premium products?
+          </h2>
+
+          <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-slate-300">
+            Explore our carefully curated collections and experience a refined
+            approach to modern living.
+          </p>
+
+          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a
+              href="/shop"
+              className="inline-flex h-11 items-center justify-center rounded-md bg-white px-8 text-sm font-semibold text-slate-900 hover:bg-slate-100"
+            >
+              Shop Now
+            </a>
+
+            <a
+              href="/contact"
+              className="inline-flex h-11 items-center justify-center rounded-md border border-white/30 px-8 text-sm font-semibold text-white hover:bg-white/10"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
