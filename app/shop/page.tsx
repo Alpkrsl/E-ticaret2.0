@@ -15,6 +15,98 @@ const COLORS = [
   { name: "Olive", className: "bg-green-700" },
 ];
 
+const PRODUCTS = [
+  {
+    id: 1,
+    category: "Furniture",
+    name: "Nordic Lounge Chair",
+    price: 490,
+    salePrice: null,
+    badge: "NEW",
+    rating: 4.8,
+    reviews: 24,
+    stockText: null,
+  },
+  {
+    id: 2,
+    category: "Lighting",
+    name: "Orbital Pendant Lamp",
+    price: 210,
+    salePrice: 175,
+    badge: "SALE",
+    rating: 4.6,
+    reviews: 18,
+    stockText: null,
+  },
+  {
+    id: 3,
+    category: "Furniture",
+    name: "Bespoke Ash Table",
+    price: 840,
+    salePrice: null,
+    badge: null,
+    rating: 4.7,
+    reviews: 12,
+    stockText: "Only 3 left",
+  },
+  {
+    id: 4,
+    category: "Textiles",
+    name: "Linen Woven Throw",
+    price: 120,
+    salePrice: null,
+    badge: null,
+    rating: 4.5,
+    reviews: 42,
+    stockText: null,
+  },
+  {
+    id: 5,
+    category: "Accessories",
+    name: "Sculptural Ceramic Vase",
+    price: 85,
+    salePrice: null,
+    badge: null,
+    rating: 4.4,
+    reviews: 9,
+    stockText: null,
+  },
+  {
+    id: 6,
+    category: "Lighting",
+    name: "Beam Desk Light",
+    price: 145,
+    salePrice: null,
+    badge: null,
+    rating: 4.6,
+    reviews: 11,
+    stockText: "In stock",
+  },
+  {
+    id: 7,
+    category: "Furniture",
+    name: "Velvet 3-Seater Sofa",
+    price: 1290,
+    salePrice: null,
+    badge: "NEW",
+    rating: 4.9,
+    reviews: 112,
+    stockText: null,
+  },
+  {
+    id: 8,
+    category: "Textiles",
+    name: "Cotton Duvet Set",
+    price: 230,
+    salePrice: null,
+    badge: null,
+    rating: 4.5,
+    reviews: 56,
+    stockText: null,
+  },
+];
+
+
 export default function ShopPage() {
   return (
     <div className="bg-white">
@@ -185,10 +277,116 @@ export default function ShopPage() {
               </div>
             </div>
 
-            {/* Placeholder for product grid (we’ll build Day 2) */}
-            <div className="mt-8 rounded-xl border border-dashed border-slate-300 p-10 text-center text-sm text-slate-500">
-              Product grid will be added tomorrow (Day 2).
-            </div>
+            {/* Product Grid (Day 2) */}
+            <section className="mt-8">
+              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {PRODUCTS.map((p) => (
+                  <div key={p.id} className="group">
+                    {/* Image */}
+                    <div className="relative overflow-hidden rounded-2xl bg-slate-100">
+                      {p.badge && (
+                        <span
+                          className={[
+                            "absolute left-3 top-3 rounded-md px-2 py-1 text-[10px] font-semibold tracking-wide",
+                            p.badge === "SALE"
+                              ? "bg-slate-900 text-white"
+                              : "bg-white text-slate-900",
+                          ].join(" ")}
+                        >
+                          {p.badge}
+                        </span>
+                      )}
+
+                      {/* image placeholder */}
+                      <div className="aspect-[4/5] w-full transition group-hover:scale-[1.02]" />
+                    </div>
+
+                    {/* Meta */}
+                    <div className="mt-4 flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-[10px] font-semibold tracking-widest text-slate-400">
+                          {p.category.toUpperCase()}
+                        </p>
+
+                        <h3 className="mt-1 text-sm font-semibold text-slate-900">
+                          {p.name}
+                        </h3>
+
+                        {/* rating */}
+                        <div className="mt-2 flex items-center gap-2">
+                          <div className="flex items-center gap-1 text-slate-400">
+                            {Array.from({ length: 5 }).map((_, idx) => {
+                              const filled = p.rating >= idx + 1;
+                              return (
+                                <svg
+                                  key={idx}
+                                  viewBox="0 0 24 24"
+                                  className="h-4 w-4"
+                                  fill={filled ? "currentColor" : "none"}
+                                  stroke="currentColor"
+                                  strokeWidth="1.6"
+                                  aria-hidden="true"
+                                >
+                                  <path d="M12 2l3 7 7 .6-5.3 4.4 1.7 6.6L12 17.8 5.6 20.9l1.7-6.6L2 9.6 9 9l3-7Z" />
+                                </svg>
+                              );
+                            })}
+                          </div>
+                          <span className="text-xs text-slate-500">
+                            ({p.reviews})
+                          </span>
+                        </div>
+
+                        {/* stock text */}
+                        {p.stockText && (
+                          <p
+                            className={[
+                              "mt-2 text-xs",
+                              p.stockText.toLowerCase().includes("only")
+                                ? "text-red-500"
+                                : "text-green-600",
+                            ].join(" ")}
+                          >
+                            ● {p.stockText}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Price */}
+                      <div className="text-right">
+                        {p.salePrice ? (
+                          <div className="flex flex-col items-end">
+                            <span className="text-xs text-slate-400 line-through">
+                              ${p.price.toFixed(2)}
+                            </span>
+                            <span className="text-sm font-semibold text-red-600">
+                              ${p.salePrice.toFixed(2)}
+                            </span>
+                          </div>
+                        ) : (
+                          <span className="text-sm font-semibold text-slate-900">
+                            ${p.price.toFixed(2)}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Load more */}
+              <div className="mt-12 flex flex-col items-center gap-3">
+                <button
+                  type="button"
+                  className="h-11 rounded-md bg-slate-200 px-8 text-xs font-semibold tracking-widest text-slate-700 hover:bg-slate-300"
+                >
+                  LOAD MORE PRODUCTS
+                </button>
+
+                <p className="text-xs text-slate-400">Displaying 8 of 124 products</p>
+              </div>
+            </section>
+
           </main>
         </div>
       </div>
