@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useMemo, useState } from "react";
 
 const CATEGORIES = [
   { name: "All Products", count: 124, checked: true },
@@ -106,8 +108,26 @@ const PRODUCTS = [
   },
 ];
 
-
 export default function ShopPage() {
+  const [sort, setSort] = useState<"Featured" | "Price: Low" | "Price: High">(
+    "Featured"
+  );
+  const [view, setView] = useState<"grid" | "list">("grid");
+  const [sortOpen, setSortOpen] = useState(false);
+
+  const sortedProducts = useMemo(() => {
+    const arr = [...PRODUCTS];
+
+    if (sort === "Price: Low") {
+      arr.sort((a, b) => (a.salePrice ?? a.price) - (b.salePrice ?? b.price));
+    }
+    if (sort === "Price: High") {
+      arr.sort((a, b) => (b.salePrice ?? b.price) - (a.salePrice ?? a.price));
+    }
+
+    return arr;
+  }, [sort]);
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-6xl px-4 py-10">
@@ -217,28 +237,70 @@ export default function ShopPage() {
               </p>
 
               <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  className="inline-flex h-9 items-center gap-2 rounded-md border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 hover:bg-slate-50"
-                >
-                  Sort: Featured
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
+                {/* Sort */}
+                <div className="relative">
+                  <button
+                    type="button"
+                    onClick={() => setSortOpen((v) => !v)}
+                    className="inline-flex h-9 items-center gap-2 rounded-md border border-slate-200 bg-white px-3 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                    aria-haspopup="menu"
+                    aria-expanded={sortOpen}
                   >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </button>
+                    Sort: {sort}
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-4 w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
 
+                  {sortOpen && (
+                    <div
+                      className="absolute right-0 z-10 mt-2 w-44 overflow-hidden rounded-md border bg-white shadow-sm"
+                      role="menu"
+                    >
+                      {["Featured", "Price: Low", "Price: High"].map((opt) => (
+                        <button
+                          key={opt}
+                          type="button"
+                          className={[
+                            "flex w-full items-center justify-between px-3 py-2 text-left text-xs hover:bg-slate-50",
+                            sort === opt
+                              ? "font-semibold text-slate-900"
+                              : "text-slate-700",
+                          ].join(" ")}
+onClick={() => {
+  setSort(opt as "Featured" | "Price: Low" | "Price: High");
+  setSortOpen(false);
+}}
+
+                          role="menuitem"
+                        >
+                          {opt}
+                          {sort === opt && <span>✓</span>}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* View toggle */}
                 <button
                   type="button"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-200 hover:bg-slate-50"
+                  onClick={() => setView("grid")}
+                  className={[
+                    "inline-flex h-9 w-9 items-center justify-center rounded-md border",
+                    view === "grid"
+                      ? "border-slate-300 bg-slate-50"
+                      : "border-slate-200 hover:bg-slate-50",
+                  ].join(" ")}
                   aria-label="Grid view"
                 >
                   <svg
@@ -257,7 +319,13 @@ export default function ShopPage() {
 
                 <button
                   type="button"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-slate-200 hover:bg-slate-50"
+                  onClick={() => setView("list")}
+                  className={[
+                    "inline-flex h-9 w-9 items-center justify-center rounded-md border",
+                    view === "list"
+                      ? "border-slate-300 bg-slate-50"
+                      : "border-slate-200 hover:bg-slate-50",
+                  ].join(" ")}
                   aria-label="List view"
                 >
                   <svg
@@ -279,8 +347,15 @@ export default function ShopPage() {
 
             {/* Product Grid (Day 2) */}
             <section className="mt-8">
-              <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {PRODUCTS.map((p) => (
+              <div
+                className={[
+                  "grid gap-8",
+                  view === "grid"
+                    ? "sm:grid-cols-2 lg:grid-cols-3"
+                    : "grid-cols-1",
+                ].join(" ")}
+              >
+                {sortedProducts.map((p) => (
                   <div key={p.id} className="group">
                     {/* Image */}
                     <div className="relative overflow-hidden rounded-2xl bg-slate-100">
@@ -383,10 +458,11 @@ export default function ShopPage() {
                   LOAD MORE PRODUCTS
                 </button>
 
-                <p className="text-xs text-slate-400">Displaying 8 of 124 products</p>
+                <p className="text-xs text-slate-400">
+                  Displaying 8 of 124 products
+                </p>
               </div>
             </section>
-
           </main>
         </div>
       </div>
