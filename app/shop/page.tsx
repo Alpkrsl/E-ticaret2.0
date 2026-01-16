@@ -114,10 +114,22 @@ export default function ShopPage() {
   );
   const [view, setView] = useState<"grid" | "list">("grid");
   const [sortOpen, setSortOpen] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    "All Products",
+  ]);
+  const [visibleCount, setVisibleCount] = useState(6);
 
-  const sortedProducts = useMemo(() => {
-    const arr = [...PRODUCTS];
+  const filteredAndSorted = useMemo(() => {
+    let arr = [...PRODUCTS];
 
+    // Category filter
+    if (!selectedCategories.includes("All Products")) {
+      arr = arr.filter((p) =>
+        selectedCategories.includes(p.category)
+      );
+    }
+
+    // Sort
     if (sort === "Price: Low") {
       arr.sort((a, b) => (a.salePrice ?? a.price) - (b.salePrice ?? b.price));
     }
@@ -126,7 +138,8 @@ export default function ShopPage() {
     }
 
     return arr;
-  }, [sort]);
+  }, [selectedCategories, sort]);
+
 
   return (
     <div className="bg-white">
@@ -163,11 +176,24 @@ export default function ShopPage() {
                     className="flex cursor-pointer items-center justify-between text-sm text-slate-700"
                   >
                     <span className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        defaultChecked={c.checked}
-                        className="h-4 w-4 rounded border-slate-300"
-                      />
+<input
+  type="checkbox"
+  checked={selectedCategories.includes(c.name)}
+  onChange={() => {
+    setVisibleCount(6); // filtre değişince başa dön
+    setSelectedCategories((prev) => {
+      if (c.name === "All Products") {
+        return ["All Products"];
+      }
+      const next = prev.includes(c.name)
+        ? prev.filter((x) => x !== c.name)
+        : [...prev.filter((x) => x !== "All Products"), c.name];
+      return next.length ? next : ["All Products"];
+    });
+  }}
+  className="h-4 w-4 rounded border-slate-300"
+/>
+
                       {c.name}
                     </span>
                     <span className="text-xs text-slate-400">{c.count}</span>
@@ -355,7 +381,8 @@ onClick={() => {
                     : "grid-cols-1",
                 ].join(" ")}
               >
-                {sortedProducts.map((p) => (
+                {filteredAndSorted.slice(0, visibleCount).map((p) => (
+
                   <div key={p.id} className="group">
                     {/* Image */}
                     <div className="relative overflow-hidden rounded-2xl bg-slate-100">
@@ -450,18 +477,23 @@ onClick={() => {
               </div>
 
               {/* Load more */}
-              <div className="mt-12 flex flex-col items-center gap-3">
-                <button
-                  type="button"
-                  className="h-11 rounded-md bg-slate-200 px-8 text-xs font-semibold tracking-widest text-slate-700 hover:bg-slate-300"
-                >
-                  LOAD MORE PRODUCTS
-                </button>
+<div className="mt-12 flex flex-col items-center gap-3">
+  {visibleCount < filteredAndSorted.length && (
+    <button
+      type="button"
+      onClick={() => setVisibleCount((v) => v + 6)}
+      className="h-11 rounded-md bg-slate-200 px-8 text-xs font-semibold tracking-widest text-slate-700 hover:bg-slate-300"
+    >
+      LOAD MORE PRODUCTS
+    </button>
+  )}
 
-                <p className="text-xs text-slate-400">
-                  Displaying 8 of 124 products
-                </p>
-              </div>
+  <p className="text-xs text-slate-400">
+    Displaying {Math.min(visibleCount, filteredAndSorted.length)} of{" "}
+    {filteredAndSorted.length} products
+  </p>
+</div>
+
             </section>
           </main>
         </div>
