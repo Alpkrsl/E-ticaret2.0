@@ -400,7 +400,7 @@ onClick={() => {
                       )}
 
                       {/* image placeholder */}
-                      <div className="aspect-[4/5] w-full transition group-hover:scale-[1.02]" />
+                      <div className="aspect-4/5 w-full transition group-hover:scale-[1.02]" />
                     </div>
 
                     {/* Meta */}
