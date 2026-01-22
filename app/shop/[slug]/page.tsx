@@ -47,6 +47,13 @@ const PRODUCT: Product = {
     "https://images.unsplash.com/photo-1511385348-a52b4a160dc2?auto=format&fit=crop&w=1200&q=80",
   ],
 };
+const RELATED = [
+  { id: 1, category: "Timepieces", name: "Classic Silver Edition", price: 299 },
+  { id: 2, category: "Accessories", name: "Tanned Leather Belt", price: 85 },
+  { id: 3, category: "Eyewear", name: "Monochrome Sunglasses", price: 145 },
+  { id: 4, category: "Small Leather Goods", name: "Minimalist Card Holder", price: 55 },
+];
+
 
 export default function ProductDetailPage() {
   const [activeImage, setActiveImage] = useState(0);
@@ -379,6 +386,43 @@ export default function ProductDetailPage() {
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+        {/* Related products */}
+        <section className="mt-16">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-slate-900">
+              You may also like
+            </h2>
+
+            <Link
+              href="/shop"
+              className="text-sm font-semibold text-blue-600 hover:opacity-80"
+            >
+              View Collection →
+            </Link>
+          </div>
+
+          <div className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {RELATED.map((p) => (
+              <div key={p.id} className="group">
+                <div className="overflow-hidden rounded-2xl bg-slate-100">
+                  <div className="aspect-[4/5] w-full transition group-hover:scale-[1.02]" />
+                </div>
+
+                <div className="mt-4">
+                  <p className="text-[10px] font-semibold tracking-widest text-slate-400">
+                    {p.category.toUpperCase()}
+                  </p>
+                  <h3 className="mt-1 text-sm font-semibold text-slate-900">
+                    {p.name}
+                  </h3>
+                  <p className="mt-2 text-sm font-semibold text-blue-600">
+                    ${p.price.toFixed(2)}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
