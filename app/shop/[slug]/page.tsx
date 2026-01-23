@@ -1,5 +1,5 @@
 "use client";
-
+import { useCartStore } from "@/app/store/cartStore";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -56,6 +56,7 @@ const RELATED = [
 
 
 export default function ProductDetailPage() {
+  const addItem = useCartStore((s) => s.addItem);
   const [activeImage, setActiveImage] = useState(0);
   const [qty, setQty] = useState(1);
   const [tab, setTab] = useState<"description" | "specs" | "shipping">(
@@ -69,10 +70,18 @@ export default function ProductDetailPage() {
     return pct;
   }, []);
 
-  const handleAddToCart = () => {
-    // Demo behavior for now (no global cart state yet)
-    alert(`Added ${qty} item(s) to cart`);
-  };
+ const handleAddToCart = () => {
+  addItem({
+    id: "minimalist-leather-chronograph",
+    title: PRODUCT.title,
+    price: PRODUCT.price,
+    qty,
+    image: PRODUCT.images[0],
+  });
+
+  alert("Product added to cart");
+};
+
 
   return (
     <div className="bg-white">
