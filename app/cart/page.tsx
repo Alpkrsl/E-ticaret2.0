@@ -1,27 +1,20 @@
+"use client";
 import Link from "next/link";
+import { useCartStore } from "@/app/store/cartStore";
 
-const ITEMS = [
-  {
-    id: "tote",
-    title: "Premium Leather Tote",
-    meta: "Color: Tan | Size: One Size",
-    price: 245,
-  },
-  {
-    id: "sweater",
-    title: "Minimalist Wool Sweater",
-    meta: "Color: Charcoal | Size: M",
-    price: 120,
-  },
-  {
-    id: "scarf",
-    title: "Artisan Silk Scarf",
-    meta: "Color: Midnight Blue | Size: One Size",
-    price: 85,
-  },
-];
+
 
 export default function CartPage() {
+  
+  const { items, removeItem, increaseQty, decreaseQty } = useCartStore();
+const subtotal = items.reduce(
+  (sum, item) => sum + item.price * item.qty,
+  0
+);
+
+const tax = Math.round(subtotal * 0.08);
+const total = subtotal + tax;
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-6xl px-4 py-10">
@@ -47,9 +40,21 @@ export default function CartPage() {
 
         {/* Layout */}
         <div className="mt-10 grid gap-8 lg:grid-cols-12">
+          {items.length === 0 && (
+  <div className="rounded-2xl border border-dashed p-10 text-center">
+    <p className="text-lg font-semibold">Your cart is empty</p>
+    <Link
+      href="/shop"
+      className="mt-4 inline-block text-blue-600 font-semibold"
+    >
+      Go to Shop →
+    </Link>
+  </div>
+)}
+
           {/* LEFT: items */}
           <div className="lg:col-span-8 space-y-6">
-            {ITEMS.map((item) => (
+            {items.map((item) => (
               <div
                 key={item.id}
                 className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
@@ -76,45 +81,33 @@ export default function CartPage() {
                       {/* qty (static for Day 1) */}
                       <div className="inline-flex h-10 items-center overflow-hidden rounded-md border border-slate-200">
                         <button
-                          type="button"
-                          className="h-full w-10 text-slate-700 hover:bg-slate-50"
-                          aria-label="Decrease quantity"
-                        >
-                          −
-                        </button>
-                        <div className="w-12 text-center text-sm font-semibold text-slate-900">
-                          1
-                        </div>
-                        <button
-                          type="button"
-                          className="h-full w-10 text-slate-700 hover:bg-slate-50"
-                          aria-label="Increase quantity"
-                        >
-                          +
-                        </button>
+  onClick={() => decreaseQty(item.id)}
+  className="h-full w-10 hover:bg-slate-50"
+>
+  −
+</button>
+
+<div className="w-12 text-center text-sm font-semibold">
+  {item.qty}
+</div>
+
+<button
+  onClick={() => increaseQty(item.id)}
+  className="h-full w-10 hover:bg-slate-50"
+>
+  +
+</button>
+
                       </div>
 
                       {/* remove (static for Day 1) */}
-                      <button
-                        type="button"
-                        className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900"
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          className="h-4 w-4"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden="true"
-                        >
-                          <path d="M3 6h18" />
-                          <path d="M8 6V4h8v2" />
-                          <path d="M7 6l1 14h8l1-14" />
-                        </svg>
-                        Remove
-                      </button>
+<button
+  onClick={() => removeItem(item.id)}
+  className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900"
+>
+  🗑 Remove
+</button>
+
                     </div>
                   </div>
                 </div>
@@ -171,10 +164,10 @@ export default function CartPage() {
               </div>
 
               <div className="mt-6 border-t pt-6 flex items-center justify-between">
-                <span className="text-lg font-semibold text-slate-900">Total</span>
-                <span className="text-2xl font-semibold text-blue-600">
-                  $486.00
-                </span>
+<span>${subtotal.toFixed(2)}</span>
+<span>${tax.toFixed(2)}</span>
+<span>${total.toFixed(2)}</span>
+
               </div>
 
               <button
