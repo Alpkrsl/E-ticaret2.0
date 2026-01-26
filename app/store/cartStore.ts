@@ -6,6 +6,7 @@ export type CartItem = {
   price: number;
   qty: number;
   image?: string;
+  meta?: string; // ✅ Color/Size gibi varyant bilgisi
 };
 
 type CartState = {
