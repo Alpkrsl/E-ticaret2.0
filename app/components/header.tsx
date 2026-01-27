@@ -1,6 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { useMemo } from "react";
+import { useCartStore } from "@/app/store/cartStore";
 
 export default function Header() {
+  const items = useCartStore((s) => s.items);
+
+  const totalQty = useMemo(
+    () => items.reduce((sum, i) => sum + i.qty, 0),
+    [items]
+  );
+
   return (
     <header className="w-full border-b bg-white">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
@@ -35,16 +46,17 @@ export default function Header() {
           <Link href="/shop" className="hover:text-slate-900">
             Shop
           </Link>
-          <Link href="/new-arrivals" className="hover:text-slate-900">
-            New Arrivals
-          </Link>
           <Link href="/about" className="hover:text-slate-900">
             About
+          </Link>
+          <Link href="/contact" className="hover:text-slate-900">
+            Contact
           </Link>
         </nav>
 
         {/* Right: Actions */}
         <div className="flex items-center gap-3">
+          {/* Search (UI only) */}
           <button
             type="button"
             className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
@@ -65,6 +77,7 @@ export default function Header() {
             </svg>
           </button>
 
+          {/* Cart */}
           <Link
             href="/cart"
             className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
@@ -87,13 +100,16 @@ export default function Header() {
                 <circle cx="18" cy="20" r="1" />
               </svg>
 
-              {/* Badge (optional) */}
-              <span className="absolute -right-2 -top-2 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-semibold text-white">
-                0
-              </span>
+              {/* Badge (only if > 0) */}
+              {totalQty > 0 && (
+                <span className="absolute -right-2 -top-2 inline-flex h-4 min-w-4 items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-semibold text-white">
+                  {totalQty}
+                </span>
+              )}
             </div>
           </Link>
 
+          {/* Account (UI only) */}
           <Link
             href="/account"
             className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-slate-100"
