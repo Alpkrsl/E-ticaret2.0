@@ -103,7 +103,7 @@ export default function OrdersPage() {
             {/* Table card */}
             <section className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[720px]">
+                <table className="w-full min-w-180">
                   <thead>
                     <tr className="bg-slate-50 text-left text-xs font-semibold tracking-wider text-slate-500">
                       <th className="px-6 py-4">ORDER ID</th>
