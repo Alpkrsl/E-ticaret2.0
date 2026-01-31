@@ -101,7 +101,7 @@ export default function AddressesPage() {
               {/* Add New Address card */}
               <button
                 type="button"
-                className="group flex min-h-[220px] flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-center hover:border-slate-400"
+                className="group flex min-h-55 flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-center hover:border-slate-400"
               >
                 <span className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">
                   <PlusIcon />
