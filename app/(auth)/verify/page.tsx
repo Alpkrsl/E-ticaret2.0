@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function VerifyPage() {
   const [code, setCode] = useState<string[]>(Array(6).fill(""));
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
+const router = useRouter();
 
   // 01:59 countdown (119s)
   const [secondsLeft, setSecondsLeft] = useState(119);
@@ -22,6 +24,8 @@ export default function VerifyPage() {
 
   const otpValue = code.join("");
   const isComplete = otpValue.length === 6 && code.every((c) => c !== "");
+const isExpired = secondsLeft === 0;
+const canVerify = isComplete && !isExpired;
 
   function focusIndex(i: number) {
     inputsRef.current[i]?.focus();
@@ -169,19 +173,24 @@ export default function VerifyPage() {
           </div>
 
           {/* CTA */}
-          <button
-            type="button"
-            disabled={!isComplete}
-            className={[
-              "mt-6 inline-flex w-full items-center justify-center gap-3 rounded-md py-3 text-sm font-semibold transition",
-              isComplete
-                ? "bg-blue-600 text-white hover:bg-blue-700"
-                : "cursor-not-allowed bg-slate-200 text-slate-500",
-            ].join(" ")}
-          >
-            Verify Identity
-            <ArrowRightIcon />
-          </button>
+  <button
+  type="button"
+  disabled={!canVerify}
+  onClick={() => {
+    // UI only: gerçek doğrulama API sonradan
+    router.push("/auth/verified");
+  }}
+  className={[
+    "mt-6 inline-flex w-full items-center justify-center gap-3 rounded-md py-3 text-sm font-semibold transition",
+    canVerify
+      ? "bg-blue-600 text-white hover:bg-blue-700"
+      : "cursor-not-allowed bg-slate-200 text-slate-500",
+  ].join(" ")}
+>
+  Verify Identity
+  <ArrowRightIcon />
+</button>
+
 
           {/* Resend */}
           <p className="mt-4 text-center text-sm text-slate-500">
