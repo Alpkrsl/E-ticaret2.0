@@ -9,22 +9,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4">
-        <Link href="/" className="text-lg font-semibold">
-          PremiumStore
-        </Link>
-
-        <div className="text-sm text-slate-600">
-          New here?{" "}
-          <Link
-            href="/auth/register"
-            className="font-medium text-blue-600 hover:underline"
-          >
-            Sign up
-          </Link>
-        </div>
-      </header>
-
+     
       {/* Main */}
       <main className="flex flex-1 items-center justify-center px-4">
         <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-sm">
@@ -117,17 +102,7 @@ export default function LoginPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="py-4 text-center text-xs text-slate-400">
-        © 2024 PremiumStore Inc. ·{" "}
-        <Link href="/privacy" className="hover:underline">
-          Privacy Policy
-        </Link>{" "}
-        ·{" "}
-        <Link href="/terms" className="hover:underline">
-          Terms of Service
-        </Link>
-      </footer>
+      
     </div>
   );
 }
