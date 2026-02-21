@@ -16,33 +16,7 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
-      {/* Top nav */}
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-semibold text-slate-900">
-            PremiumStore
-          </Link>
-
-          <nav className="hidden items-center gap-8 text-sm text-slate-600 md:flex">
-            <Link href="/shop" className="hover:text-slate-900">
-              Shop
-            </Link>
-            <Link href="/categories" className="hover:text-slate-900">
-              Categories
-            </Link>
-            <Link href="/support" className="hover:text-slate-900">
-              Support
-            </Link>
-          </nav>
-
-          <Link
-            href="/auth/login"
-            className="inline-flex h-10 items-center justify-center rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700"
-          >
-            Login
-          </Link>
-        </div>
-      </header>
+     
 
       {/* Main */}
       <main className="flex flex-1 items-center justify-center px-4 py-12">
@@ -175,17 +149,7 @@ export default function ResetPasswordPage() {
       </main>
 
       {/* Footer */}
-      <footer className="py-5 text-center text-xs text-slate-400">
-        © 2024 PremiumStore. All rights reserved.
-        <div className="mt-1 flex items-center justify-center gap-4">
-          <Link href="/privacy" className="hover:underline">
-            Privacy Policy
-          </Link>
-          <Link href="/terms" className="hover:underline">
-            Terms of Service
-          </Link>
-        </div>
-      </footer>
+      
     </div>
   );
 }

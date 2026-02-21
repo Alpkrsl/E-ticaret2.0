@@ -2,6 +2,20 @@ from rest_framework import viewsets
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 from .filters import ProductFilter
+from .models import Order, OrderItem
+from .serializers import OrderSerializer
+from rest_framework.permissions import IsAuthenticated
+
+from django.shortcuts import get_object_or_404
+
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from rest_framework.permissions import IsAuthenticated
+
+from .models import Order, OrderItem, Cart
+from .serializers import OrderSerializer
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all().order_by("name")
@@ -21,3 +35,5 @@ class ProductViewSet(viewsets.ModelViewSet):
     # Filtering:
     # ?in_stock=true&category=1&min_price=1000&max_price=99999
     filterset_class = ProductFilter
+
+
