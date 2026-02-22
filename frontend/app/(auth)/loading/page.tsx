@@ -5,29 +5,7 @@ import Link from "next/link";
 export default function AuthLoadingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
-      {/* Top bar */}
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-slate-900">
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white">
-              <ShieldLogo />
-            </span>
-            PremiumStore
-          </Link>
-
-          <div className="flex items-center gap-6 text-sm text-slate-600">
-            <Link href="/help" className="hover:text-slate-900">
-              Help
-            </Link>
-            <Link
-              href="/auth/login"
-              className="inline-flex h-10 items-center justify-center rounded-md bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700"
-            >
-              Login
-            </Link>
-          </div>
-        </div>
-      </header>
+     
 
       {/* Main */}
       <main className="flex flex-1 items-center justify-center px-4 py-12">
@@ -89,21 +67,7 @@ export default function AuthLoadingPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="py-6 text-center text-xs text-slate-400">
-        <div className="flex items-center justify-center gap-6">
-          <Link href="/privacy" className="hover:underline">
-            Privacy Policy
-          </Link>
-          <Link href="/terms" className="hover:underline">
-            Terms of Service
-          </Link>
-          <Link href="/contact" className="hover:underline">
-            Contact Us
-          </Link>
-        </div>
-        <p className="mt-2">© 2024 PremiumStore Inc. All rights reserved.</p>
-      </footer>
+     
     </div>
   );
 }
