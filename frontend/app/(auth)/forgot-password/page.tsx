@@ -5,33 +5,7 @@ import Link from "next/link";
 export default function ForgotPasswordPage() {
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
-      {/* Top nav */}
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-semibold text-slate-900">
-            PremiumStore
-          </Link>
-
-          <nav className="hidden items-center gap-8 text-sm text-slate-600 md:flex">
-            <Link href="/shop" className="hover:text-slate-900">
-              Shop
-            </Link>
-            <Link href="/categories" className="hover:text-slate-900">
-              Categories
-            </Link>
-            <Link href="/support" className="hover:text-slate-900">
-              Support
-            </Link>
-          </nav>
-
-          <Link
-            href="/auth/login"
-            className="inline-flex h-10 items-center justify-center rounded-md border border-blue-600 bg-white px-5 text-sm font-semibold text-blue-600 hover:bg-blue-50"
-          >
-            Sign In
-          </Link>
-        </div>
-      </header>
+     
 
       {/* Main */}
       <main className="flex flex-1 items-center justify-center px-4 py-12">
@@ -97,10 +71,7 @@ export default function ForgotPasswordPage() {
         </span>
       </div>
 
-      {/* Footer */}
-      <footer className="py-5 text-center text-xs text-slate-400">
-        © 2024 PremiumStore E-Commerce. All rights reserved.
-      </footer>
+     
     </div>
   );
 }
