@@ -11,21 +11,7 @@ export default function GlobalError({
 }) {
   return (
     <div className="flex min-h-screen flex-col bg-slate-50">
-      {/* Header */}
-      <header className="border-b bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-semibold text-slate-900">
-            PremiumStore
-          </Link>
-
-          <Link
-            href="/"
-            className="rounded-md bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-700"
-          >
-            Home
-          </Link>
-        </div>
-      </header>
+     
 
       {/* Main */}
       <main className="flex flex-1 items-center justify-center px-4">
@@ -71,10 +57,7 @@ export default function GlobalError({
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="py-6 text-center text-xs text-slate-400">
-        © 2024 PremiumStore. All rights reserved.
-      </footer>
+     
     </div>
   );
 }
